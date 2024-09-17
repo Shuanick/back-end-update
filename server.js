@@ -37,7 +37,7 @@
   app.use('/users', userRoutes);
   app.use('/posts', postRoutes);
 
-  pp.get('/', (req, res) => {
+  app.get('/', (req, res) => {
     res.send('API is running');
   });
 
