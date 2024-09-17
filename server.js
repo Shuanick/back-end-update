@@ -38,8 +38,7 @@
   app.use('/posts', postRoutes);
 
   app.get('/', (req, res) => {
-    res.send('API is running');
-    console.log(dbURI);
+    res.send('API2 is running');
   });
 
   // 启动服务器
