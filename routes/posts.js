@@ -26,9 +26,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       image: imageUrl,
     });
     await newPost.save();
-    res
-      .status(201)
-      .json({ message: "Post created successfully", data: newPost });
+    res.status(201).json({ message: "Post created successfully", data: newPost });
   } catch (error) {
     console.error("Error creating post:", error);
     res.status(500).send("Error creating post: " + error.message);
