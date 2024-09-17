@@ -37,6 +37,7 @@ async function uploadImageToGCS(file) {
   const bucketName = 'nick_product_bucket';
   const base64Key = process.env.GOOGLE_CLOUD_KEYFILE;//
   const keyFilePath = path.join(os.tmpdir(), 'service-account-file.json');//
+  try{
   fs.writeFileSync(keyFilePath, Buffer.from(base64Key, 'base64'));//
   const storage = new Storage({
     keyFilename: keyFilePath //modified
@@ -56,6 +57,9 @@ async function uploadImageToGCS(file) {
     });
     blobStream.end(file.buffer);
   });
+}catch(err){
+  throw new Error('Failed to upload image to GCS: ' + err.message);
+}
 }
 
 // 獲取所有帖子
