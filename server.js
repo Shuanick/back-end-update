@@ -24,7 +24,8 @@
   });
 
   app.use(cors({
-      origin: "https://nickproduct2.netlify.app" || 'http://localhost:5173', // 允许此来源的请求
+    // "https://nickproduct2.netlify.app" || 
+      origin: 'https://nickproduct2.netlify.app', // 允许此来源的请求
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // 允许的 HTTP 方法
       allowedHeaders: ['Content-Type', 'Authorization'] // 允许的标头
   }));
