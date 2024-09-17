@@ -39,6 +39,7 @@
 
   app.get('/', (req, res) => {
     res.send('API is running');
+    console.log(dbURI);
   });
 
   // 启动服务器
