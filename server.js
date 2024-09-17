@@ -37,6 +37,10 @@
   app.use('/users', userRoutes);
   app.use('/posts', postRoutes);
 
+  pp.get('/', (req, res) => {
+    res.send('API is running');
+  });
+
   // 启动服务器
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
