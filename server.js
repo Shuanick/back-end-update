@@ -17,7 +17,7 @@
 
   // 检查连接
   mongoose.connection.on('connected', () => {
-    console.log('Connected to MongoDB');
+    console.log(`Connected to ${dbURI}`);
   });
   mongoose.connection.on('error', (err) => {
     console.error('MongoDB connection error:', err);
@@ -25,7 +25,7 @@
 
   app.use(cors({
     // "https://nickproduct2.netlify.app" || 
-      origin: 'https://nickproduct2.netlify.app', // 允许此来源的请求
+      origin: 'http://localhost:5173', // 允许此来源的请求
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // 允许的 HTTP 方法
       allowedHeaders: ['Content-Type', 'Authorization'] // 允许的标头
   }));
@@ -43,6 +43,6 @@
   });
 
   // 启动服务器
-  app.listen(port, () => {
+  app.listen(3000, () => {
     console.log(`Server running at http://localhost:${port}`);
   });
