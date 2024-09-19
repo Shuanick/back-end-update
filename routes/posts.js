@@ -13,6 +13,7 @@ const upload = multer({ storage: storage });
 // 創建新帖子
 router.post("/", upload.single("image"), async (req, res) => {
   const  content  = req.body.content;
+  const id = req.body.user;
   if (!content) {
     return res.status(400).send("Content is required");
   }
@@ -20,6 +21,7 @@ router.post("/", upload.single("image"), async (req, res) => {
   try {
     const imageUrl = req.body.image;
     const newPost = new Post({
+      user : id,
       content,
       image: imageUrl,
     });

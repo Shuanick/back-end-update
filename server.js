@@ -6,9 +6,8 @@
   const cors = require('cors');
   const path = require('path');
   require('dotenv').config();
-
   const app = express();
-  const port = process.env.PORT || 3000;
+  const port = process.env.port || 3000;
 
   // 连接到 MongoDB
   // mongodb+srv://linshuan880727:<db_password>@nickserver.0wgra.mongodb.net/?retryWrites=true&w=majority&appName=NickServer
@@ -22,10 +21,10 @@
   mongoose.connection.on('error', (err) => {
     console.error('MongoDB connection error:', err);
   });
-
+  
   app.use(cors({
     // "https://nickproduct2.netlify.app" || 
-      origin: 'https://nickproduct2.netlify.app', // 允许此来源的请求
+      origin: "https://nickproduct2.netlify.app", // 允许此来源的请求
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // 允许的 HTTP 方法
       allowedHeaders: ['Content-Type', 'Authorization'] // 允许的标头
   }));
@@ -43,6 +42,6 @@
   });
 
   // 启动服务器
-  app.listen(port, () => {
+  app.listen(3000, () => {
     console.log(`Server running at http://localhost:${port}`);
   });
