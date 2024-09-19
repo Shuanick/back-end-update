@@ -7,7 +7,7 @@
   const path = require('path');
   require('dotenv').config();
   const app = express();
-  const port = process.env.port || 3000;
+  const port = process.env.PORT || 3000;
 
   // 连接到 MongoDB
   // mongodb+srv://linshuan880727:<db_password>@nickserver.0wgra.mongodb.net/?retryWrites=true&w=majority&appName=NickServer
