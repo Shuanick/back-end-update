@@ -7,8 +7,10 @@ const crypto = require('crypto');
 // 註冊
 
 router.get("/:userId", async (req, res) => {
+  const { userId } = req.params;
   try {
-    const user = await User.find();
+    const user = await User.findOne({ username: userId });
+    if (!user) return res.status(404).send('User not found');
     res.send(user);
   } catch (error) {
     res.status(500).send("Error fetching user profile: " + error.message);
@@ -32,7 +34,23 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// 登入
+router.patch('/:userId', async (req, res) => {
+  const  {userId}  = req.params;
+  const  {introduction}  = req.body;
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { username : userId }, // 根據username查找資料
+      { introduction }, // 只更新簡介
+      { new: true } // 返回更新后的資料
+    );
+
+    if (!updatedUser) return res.status(404).send('User not found');
+    res.send(updatedUser);
+  } catch (error) {
+    res.status(500).send('Error updating user: ' + error.message);
+  }
+});
+
 router.post('/login', async (req, res) => {
   const { username , password } = req.body;
 
