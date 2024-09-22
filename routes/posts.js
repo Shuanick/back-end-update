@@ -10,10 +10,24 @@ require('dotenv').config();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// 創建新帖子
+router.patch("/:id", async (req, res) => {
+  const { likedBy } = req.body;
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.id, { likedBy }, { new: true }); 
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+    res.json({ message: "Post updated successfully", data: post });
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).send("Error updating post: " + error.message);
+  }
+});
+
 router.post("/", upload.single("image"), async (req, res) => {
   const  content  = req.body.content;
   const id = req.body.user;
+  const likedBy = req.body.likedBy;
   if (!content) {
     return res.status(400).send("Content is required");
   }
@@ -24,6 +38,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       user : id,
       content,
       image: imageUrl,
+      likedBy: likedBy,
     });
     await newPost.save();
     res.status(201).json({ message: `Post created successfully`, data: newPost });
@@ -32,7 +47,6 @@ router.post("/", upload.single("image"), async (req, res) => {
     res.status(500).send("Error creating post: " + error.message);
   }
 });
-
 
 // 獲取所有帖子
   router.get("/", async (req, res) => {
