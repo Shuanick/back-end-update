@@ -4,7 +4,15 @@ const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
-// 註冊
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send(users);
+  } catch (error) {
+    res.status(500).send('Error fetching users: ' + error.message);
+  }
+});
+
 
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
