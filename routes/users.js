@@ -29,17 +29,6 @@ router.post("/:username/friend-request", async (req, res) => {
     user.friendRequests.push(requester.username);
     await user.save();
 
-    //發送websocket消息
-    if(userConnections[username])
-    {
-      userConnections[username].send(
-        JSON.stringify({
-          type: "friendRequest",
-          username: requester.username,
-        })
-      );
-    }
-
     res.status(200).send({ message: "Friend request sent" });
   } catch (error) {
     res.status(500).send("Error sending friend request");

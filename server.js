@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const uploadRoutes = require("./routes/upload");
+const notiRoutes = require("./routes/notifications")
 const cors = require("cors");
 const http = require("http");
 const WebSocket = require("ws");
@@ -40,6 +41,7 @@ app.use(express.json());
 app.use("/upload", uploadRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/notifications",notiRoutes);
 
 app.get("/", (req, res) => {
   res.send("API2 is running");
@@ -56,12 +58,11 @@ const userConnections = require('./connection');
 
 // 处理 WebSocket 连接
 wss.on("connection", (ws, req) => {
-  const url = new URL(req.url, `https://${req.headers.host}/`);
+  const url = new URL(req.url, `https://${req.headers.host}/`); //
   const userId = url.pathname.split('/')[1];
 
   if (userId) {
     userConnections[userId] = ws;
-    console.log(userConnections);
     console.log(`User ${userId} connected.`);
 
     ws.on("close", () => {
