@@ -22,12 +22,12 @@ router.post("/", async (req, res) => {
     const latestMessage = chat.messages[chat.messages.length - 1];
 
     if (userConnections[sender] && userConnections[reciever]) {
-      userConnections[sender].send(
-        JSON.stringify({
-          type: "message",
-          latestMessage,
-        })
-      );
+      // userConnections[sender].send(
+      //   JSON.stringify({
+      //     type: "message",
+      //     latestMessage,
+      //   })
+      // );
       userConnections[reciever].send(
         JSON.stringify({
           type: "message",
