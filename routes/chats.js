@@ -19,17 +19,19 @@ router.post("/", async (req, res) => {
     chat.messages.push(newMessage);
     await chat.save(); // 保存聊天记录
 
+    const latestMessage = chat.messages[chat.messages.length - 1];
+
     if (userConnections[sender] && userConnections[reciever]) {
       userConnections[sender].send(
         JSON.stringify({
           type: "message",
-          newMessage,
+          latestMessage,
         })
       );
       userConnections[reciever].send(
         JSON.stringify({
           type: "message",
-          newMessage,
+          latestMessage,
         })
       );
     }
