@@ -15,20 +15,21 @@ router.post("/", async (req, res) => {
     }
 
     // 添加新消息
-    chat.messages.push({ sender, reciever, content });
+    const newMessage = { sender, reciever, content };
+    chat.messages.push(newMessage);
     await chat.save(); // 保存聊天记录
 
     if (userConnections[sender] && userConnections[reciever]) {
       userConnections[sender].send(
         JSON.stringify({
           type: "message",
-          chat,
+          newMessage,
         })
       );
       userConnections[reciever].send(
         JSON.stringify({
           type: "message",
-          chat,
+          newMessage,
         })
       );
     }
