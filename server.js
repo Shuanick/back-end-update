@@ -4,6 +4,7 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const uploadRoutes = require("./routes/upload");
 const notiRoutes = require("./routes/notifications")
+const chatRoutes = require("./routes/chats");
 const cors = require("cors");
 const http = require("http");
 const WebSocket = require("ws");
@@ -42,6 +43,7 @@ app.use("/upload", uploadRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/notifications",notiRoutes);
+app.use("/chats",chatRoutes);
 
 app.get("/", (req, res) => {
   res.send("API2 is running");
